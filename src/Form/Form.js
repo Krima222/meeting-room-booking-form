@@ -13,12 +13,14 @@ export function Form() {
     const [date, setDate] = useState();
     const [comment, setComment] = useState();
     const [arror, setArror] = useState(false);
-
+    
     const handleSubmit  = (event) => {
         event.preventDefault();
 
         if (tower && floor && meetingRoom && date) {
-            const formData = { tower, floor, meetingRoom, date, comment };
+            const newdate = new Date(date)
+            const formattedDate = `${newdate.getDate()}/${newdate.getMonth() + 1}/${newdate.getFullYear()} ${newdate.getHours()}:${newdate.getMinutes()}`;
+            const formData = { tower, floor, meetingRoom, formattedDate, comment };
             const jsonData = JSON.stringify(formData); 
 
             console.log(jsonData);
@@ -35,7 +37,6 @@ export function Form() {
         setDate("")
         setComment("")
     }
-
     return (
         <form className={classes.form} onSubmit={handleSubmit}>
             <img src={background} alt="background" />
